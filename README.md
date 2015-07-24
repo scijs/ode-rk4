@@ -34,7 +34,7 @@ var integrator = rk4( y0, deriv, t0, dt )
 integrator.steps(n)
 
 // Integrate all the way around a circle:
-// => integrator.y = [ 1.0199349143076457, -0.00008432969374211775 ]
+// => integrator.y = [ 0.9999999999995743, -8.160481752145232e-11 ]
 ```
 
 
