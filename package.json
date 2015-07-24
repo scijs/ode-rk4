@@ -1,6 +1,6 @@
 {
   "name": "ode-rk4",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Integrate a system of ODEs using the Fourth Order Runge-Kutta (RK-4) method",
   "main": "lib/index.js",
   "scripts": {
