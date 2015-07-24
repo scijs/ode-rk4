@@ -1,9 +1,9 @@
 'use strict';
 
-var midpoint = require('../lib');
+var rk4 = require('../lib');
 var assert = require('chai').assert;
 
-describe("midpoint integration", function() {
+describe("rk4 integration", function() {
 
   var integrator, f, y0;
 
@@ -15,7 +15,7 @@ describe("midpoint integration", function() {
 
     y0 = new Float64Array([1,0]);
 
-    integrator = midpoint( y0, f, 0, 1 );
+    integrator = rk4( y0, f, 0, 1 );
   });
 
   it("takes a single timestep",function() {

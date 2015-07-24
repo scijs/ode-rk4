@@ -1,24 +1,23 @@
 {
-  "name": "ode-midpoint",
+  "name": "ode-rk4",
   "version": "1.0.0",
-  "description": "Integrate a system of ODEs using the Second Order Runge-Kutta (Midpoint) method",
+  "description": "Integrate a system of ODEs using the Fourth Order Runge-Kutta (RK-4) method",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/scijs/ode-midpoint.git"
+    "url": "git://github.com/scijs/ode-rk4.git"
   },
   "keywords": [
     "scijs",
     "ode",
-    "midpoint",
+    "rk4",
     "runge-kutta",
     "integration",
     "differential-equations",
-    "calculus",
-    "first-order"
+    "calculus"
   ],
   "author": "Ricky Reusser",
   "license": "MIT",
