@@ -5,7 +5,15 @@
 
 ## Introduction
 
-This module integrates a system of ordinary differential equations of the form <p align="center"><img alt="undefined" valign="middle" src="images/yt-ft-yt-fae25965d3.png" width="151.5" height="25"></p> <p align="center"><img alt="undefined" valign="middle" src="images/yt_0-y_0-42d14f447f.png" width="91.5" height="24"></p> where <img alt="undefined" valign="middle" src="images/y-adb83ba1d7.png" width="14.5" height="16.5"> is a vector of length <img alt="undefined" valign="middle" src="images/n-66e1b1ee17.png" width="16" height="13">. Given time step <img alt="undefined" valign="middle" src="images/delta-t-9813ae7971.png" width="28" height="18">, the Runge-Kutta 4 method integrates the ODE with update <p align="center"><img alt="undefined" valign="middle" src="images/y_n1-fracdelta-t6leftk_1-2k_2-2k_3-k_4right-58f49ef625.png" width="289" height="45"></p> <p align="center"><img alt="undefined" valign="middle" src="images/t_n1-t_n-delta-t-a6feda606a.png" width="135" height="22.5"></p> where <img alt="undefined" valign="middle" src="images/k_n-bcd1333065.png" width="25.5" height="21"> are given by <p align="center"><img alt="undefined" valign="middle" src="images/k_1-ft_n-y_n-9aa4e00ef0.png" width="130.5" height="24"></p> <p align="center"><img alt="undefined" valign="middle" src="images/k_2-ft_n-fracdelta-t2-y_n-fracdelta-t2-k_1-d1c9d16d54.png" width="255.5" height="45"></p> <p align="center"><img alt="undefined" valign="middle" src="images/k_3-ft_n-fracdelta-t2-y_n-fracdelta-t2-k_2-605f389527.png" width="255.5" height="45"></p> <p align="center"><img alt="undefined" valign="middle" src="images/k_4-ft_n-delta-t-y_n-delta-tk_3-8ee3750675.png" width="246" height="24"></p>
+This module integrates a system of ordinary differential equations of the form
+
+<p align="center"><img alt="&bsol;begin&lcub;eqnarray&midast;&rcub; y&apos;&lpar;t&rpar; &amp;&equals;&amp; f&lpar;t&comma; y&lpar;t&rpar;&rpar;&comma; &bsol;&bsol; y&lpar;t&lowbar;0&rpar; &amp;&equals;&amp; y&lowbar;0 &bsol;end&lcub;eqnarray&midast;&rcub;" valign="middle" src="docs/images/begineqnarray-yt-ft-yt-yt_0-y_0-endeqnarray-0298eae3db.png" width="187" height="61"></p>
+
+where <img alt="y" valign="middle" src="docs/images/y-720f311276.png" width="14.5" height="20"> is a vector of length <img alt="n" valign="middle" src="docs/images/n-9baedbc330.png" width="16" height="16">. Given time step <img alt="&bsol;Delta t" valign="middle" src="docs/images/delta-t-a20a5fe4f2.png" width="28" height="16">, the Runge-Kutta 4 method integrates the ODE with update
+
+<p align="center"><img alt="&bsol;begin&lcub;eqnarray&midast;&rcub; y&lowbar;&lcub;n&plus;1&rcub; &amp;&equals;&amp; &bsol;frac&lcub;&bsol;Delta t&rcub;&lcub;6&rcub;&bsol;left&lpar;k&lowbar;1 &plus; 2k&lowbar;2 &plus; 2k&lowbar;3 &plus; k&lowbar;4&bsol;right&rpar; &bsol;&bsol; t&lowbar;&lcub;n&plus;1&rcub; &amp;&equals;&amp; t&lowbar;n &plus; &bsol;Delta t &bsol;end&lcub;eqnarray&midast;&rcub;" valign="middle" src="docs/images/begineqnarray-y_n1-fracdelta-t6leftk_1-2k_2-2-41157480a7.png" width="321.5" height="71"></p>
+where <img alt="k&lowbar;n" valign="middle" src="docs/images/k_n-d413726dee.png" width="25.5" height="19"> are given by
+<p align="center"><img alt="&bsol;begin&lcub;eqnarray&midast;&rcub; k&lowbar;1 &amp;&equals;&amp; f&lpar;t&lowbar;n&comma; y&lowbar;n&rpar;&comma; &bsol;&bsol; k&lowbar;2 &amp;&equals;&amp; f&lpar;t&lowbar;n &plus; &bsol;frac&lcub;&bsol;Delta t&rcub;&lcub;2&rcub;&comma; y&lowbar;n &plus; &bsol;frac&lcub;&bsol;Delta t&rcub;&lcub;2&rcub; k&lowbar;1&rpar;&comma; &bsol;&bsol; k&lowbar;3 &amp;&equals;&amp; f&lpar;t&lowbar;n &plus; &bsol;frac&lcub;&bsol;Delta t&rcub;&lcub;2&rcub;&comma; y&lowbar;n &plus; &bsol;frac&lcub;&bsol;Delta t&rcub;&lcub;2&rcub; k&lowbar;2&rpar;&comma; &bsol;&bsol; k&lowbar;4 &amp;&equals;&amp; f&lpar;t&lowbar;n &plus; &bsol;Delta t&comma; y&lowbar;n &plus; &bsol;Delta tk&lowbar;3&rpar;&period;  &bsol;end&lcub;eqnarray&midast;&rcub;" valign="middle" src="docs/images/begineqnarray-k_1-ft_n-y_n-k_2-ft_n-fracdelta-35d808c6ef.png" width="288" height="156.5"></p>
 
 ## Install
 
@@ -45,8 +53,8 @@ integrator.steps(n)
 **Arguments:**
 - `y0`: an array or typed array containing initial conditions. This vector is updated in-place with each integrator step.
 - `deriv`: a function that calculates the derivative. Format is `function( dydt, y, t )`. Inputs are current state `y` and current time `t`, output is calcualted derivative `dydt`.
-- `t0`: initial time <img alt="undefined" valign="middle" src="images/t-3f19307093.png" width="11.5" height="16.5">.
-- `dt`: time step <img alt="undefined" valign="middle" src="images/delta-t-9813ae7971.png" width="28" height="18">.
+- `t0`: initial time <img alt="t" valign="middle" src="docs/images/t-fc93da6f4d.png" width="11.5" height="16">.
+- `dt`: time step <img alt="&bsol;Delta t" valign="middle" src="docs/images/delta-t-a20a5fe4f2.png" width="28" height="16">.
 
 **Returns**:
 Initialized integrator object.
@@ -56,7 +64,7 @@ Initialized integrator object.
 - `y`: current state. Initialized as a shallow copy of input `y0`.
 - `deriv`: function that calcualtes derivative. Initialized from input. May be changed.
 - `t`: current time, incremented by `dt` with each time step.
-- `dt`: time step <img alt="undefined" valign="middle" src="images/delta-t-9813ae7971.png" width="28" height="18">. Initialized from input `dt`. May be changed.
+- `dt`: time step <img alt="&bsol;Delta t" valign="middle" src="docs/images/delta-t-a20a5fe4f2.png" width="28" height="16">. Initialized from input `dt`. May be changed.
 
 **Methods:**
 - `.step()`: takes a single step of the RK-4 integrator and stores the result in-place in the `y` property.

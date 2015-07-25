@@ -5,7 +5,15 @@
 
 ## Introduction
 
-This module integrates a system of ordinary differential equations of the form $$ y'(t) &=& f(t, y(t)),$$ $$y(t_0) = y_0$$ where $y$ is a vector of length $n$. Given time step $\Delta t$, the Runge-Kutta 4 method integrates the ODE with update $$y_{n+1} = \frac{\Delta t}{6}\left(k_1 + 2k_2 + 2k_3 + k_4\right)$$ $$t_{n+1} = t_n + \Delta t$$ where $k_n$ are given by $$k_1 = f(t_n, y_n),$$ $$k_2 = f(t_n + \frac{\Delta t}{2}, y_n + \frac{\Delta t}{2} k_1),$$ $$k_3 = f(t_n + \frac{\Delta t}{2}, y_n + \frac{\Delta t}{2} k_2),$$ $$k_4 = f(t_n + \Delta t, y_n + \Delta tk_3).$$
+This module integrates a system of ordinary differential equations of the form
+
+$$[plain=true] \begin{eqnarray*} y'(t) &=& f(t, y(t)), \\ y(t_0) &=& y_0 \end{eqnarray*} $$
+
+where $y$ is a vector of length $n$. Given time step $\Delta t$, the Runge-Kutta 4 method integrates the ODE with update
+
+$$[plain=true] \begin{eqnarray*} y_{n+1} &=& \frac{\Delta t}{6}\left(k_1 + 2k_2 + 2k_3 + k_4\right) \\ t_{n+1} &=& t_n + \Delta t \end{eqnarray*}$$
+where $k_n$ are given by
+$$[plain=true] \begin{eqnarray*} k_1 &=& f(t_n, y_n), \\ k_2 &=& f(t_n + \frac{\Delta t}{2}, y_n + \frac{\Delta t}{2} k_1), \\ k_3 &=& f(t_n + \frac{\Delta t}{2}, y_n + \frac{\Delta t}{2} k_2), \\ k_4 &=& f(t_n + \Delta t, y_n + \Delta tk_3).  \end{eqnarray*}$$
 
 ## Install
 

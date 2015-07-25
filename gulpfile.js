@@ -12,23 +12,23 @@ gulp.task('mdtex',function() {
 
   var transform = mdEqs({
     defaults: {
-      display: { margin: '1pt' },
-      inline:  { margin: '1pt' }
+      display: { margin: '1pt 1pt 1pt -10pt' },
+      inline:  { margin: '1pt 1pt 1pt -5pt' }
     }
   })
 
   return gulp.src('*.mdtex')
     .pipe(transform)
     .pipe(texFilter)
-    //.pipe(tap(function(file) { console.log(file.contents.toString()) }))
+    .pipe(tap(function(file) { console.log(file.contents.toString()) }))
     .pipe(latex())
     .pipe(pdftocairo({format: 'png'}))
-    .pipe(gulp.dest('images'))
+    .pipe(gulp.dest('docs/images'))
     .pipe(tap(function(file) {
       transform.completeSync(file,function() {
         var img = '<img alt="'+this.alt+'" valign="middle" src="'+this.path+
                   '" width="'+this.width/2+'" height="'+this.height/2+'">'
-        return this.display ? '<p align="center">'+img+'</p>' : img
+        return this.inline ? img : '<p align="center">'+img+'</p>'
       })
     }))
     .pipe(texFilter.restore()).pipe(mdFilter)
