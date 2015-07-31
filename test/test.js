@@ -56,7 +56,7 @@ Object.keys(ctors).forEach(function(dtype) {
       it('location truncation error is order O(h^5)', function() {
         var result = richardson(function(h) {
 
-          // Integrate long a sector of a circle:
+          // Integrate along a sector of a circle:
           var f = function(dydt, y) { dydt[0] = -y[1]; dydt[1] =  y[0] }
           var i = rk4( new ctor([1,0]), f, 0, h ).step()
 
@@ -65,7 +65,7 @@ Object.keys(ctors).forEach(function(dtype) {
 
         }, 2*Math.PI/20, { f: 0 } )
 
-        assert.closeTo( result.n, 5, 1e-2, 'total accumulated error is O(h^5)' )
+        assert.closeTo( result.n, 5, 1e-2, 'n ~ 5' )
       })
 
       it('total accumulated error is order O(h^4)', function() {
@@ -81,7 +81,7 @@ Object.keys(ctors).forEach(function(dtype) {
 
         }, 2*Math.PI/20, { f: 0 } )
 
-        assert.closeTo( result.n, 4, 1e-2, 'total accumulated error is O(h^4)' )
+        assert.closeTo( result.n, 4, 1e-2, 'n ~ 4' )
       })
 
     })
