@@ -103,7 +103,18 @@ Object.keys(ctors).forEach(function(dtype) {
 
     describe('convergence', function() {
 
-      it('location truncation error is order O(h^5)', function() {
+      it('local truncation error is ~ O(h^5) in time', function() {
+        // Integrate an exponential: dy/dt = -y  -->  y = exp(-t)
+        var result = richardson(function(h) {
+          var f = function(dydt, y) { dydt[0] = -y[0] }
+          return rk4( new ctor([1]), f, 0, h ).step().y[0] - Math.exp(-h)
+        }, [1,0.2], { f: 0 } )
+
+        assert.closeTo( result.n, 5, 1e-1, 'n ~ 5' )
+      })
+
+
+      it('local truncation error of y is order O(h^5)', function() {
         var result = richardson(function(h) {
 
           // Integrate along a sector of a circle:
@@ -118,7 +129,7 @@ Object.keys(ctors).forEach(function(dtype) {
         assert.closeTo( result.n, 5, 1e-2, 'n ~ 5' )
       })
 
-      it('total accumulated error is order O(h^4)', function() {
+      it('total accumulated error of y is order O(h^4)', function() {
 
         var result = richardson(function(h) {
 
@@ -134,28 +145,23 @@ Object.keys(ctors).forEach(function(dtype) {
         assert.closeTo( result.n, 4, 1e-2, 'n ~ 4' )
       })
 
-      xit('total accumulated error is order O(h^4)', function() {
+      it('total accumulated error is order O(h^4) in all variables', function() {
 
         var numSteps= 10
 
         var result = richardson(function(h) {
-          console.log('\n\n\n')
-
           // Integrate around a circle at an accelerating rate
           var f = function(dydt, y, t) {
-            var s = Math.sin(t * Math.PI )
-            console.log(y[2])
-            dydt[0] = -y[1]*s
-            dydt[1] =  y[0]*s
-            dydt[2] = s
+            var s =  Math.sin(t * Math.PI) * Math.PI / 2
+            dydt[0] = -y[1]* 2 * Math.PI * s
+            dydt[1] =  y[0]* 2 * Math.PI * s
           }
           var i = rk4( new ctor([1,0,0]), f, 0, h ).steps( Math.floor(1/h+0.5))
-          console.log(i.y[2])
 
           // Return the distance from the expected endpoint:
-          return Math.sqrt( Math.pow(i.y[0]+1,2) + Math.pow(i.y[1],2) )
+          return Math.sqrt( Math.pow(i.y[0]-1,2) + Math.pow(i.y[1],2) )
 
-        }, 1/numSteps, { f: 0 } )
+        }, 0.05, { f: 0 } )
 
         assert.closeTo( result.n, 4, 1e-2, 'n ~ 4' )
       })
