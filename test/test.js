@@ -7,7 +7,7 @@ var rk4 = require('../lib')
 var ctors = {
   'float32': Float32Array,
   'float64': Float64Array,
-  'array': function(){ return Array.apply(this,arguments[0]) }
+  'array': function(){ return arguments[0] }
 }
 
 
@@ -80,6 +80,32 @@ Object.keys(ctors).forEach(function(dtype) {
           return Math.sqrt( Math.pow(i.y[0]-1,2) + Math.pow(i.y[1],2) )
 
         }, 2*Math.PI/20, { f: 0 } )
+
+        assert.closeTo( result.n, 4, 1e-2, 'n ~ 4' )
+      })
+
+      xit('total accumulated error is order O(h^4)', function() {
+
+        var numSteps= 10
+
+        var result = richardson(function(h) {
+          console.log('\n\n\n')
+
+          // Integrate around a circle at an accelerating rate
+          var f = function(dydt, y, t) {
+            var s = Math.sin(t * Math.PI )
+            console.log(y[2])
+            dydt[0] = -y[1]*s
+            dydt[1] =  y[0]*s
+            dydt[2] = s
+          }
+          var i = rk4( new ctor([1,0,0]), f, 0, h ).steps( Math.floor(1/h+0.5))
+          console.log(i.y[2])
+
+          // Return the distance from the expected endpoint:
+          return Math.sqrt( Math.pow(i.y[0]+1,2) + Math.pow(i.y[1],2) )
+
+        }, 1/numSteps, { f: 0 } )
 
         assert.closeTo( result.n, 4, 1e-2, 'n ~ 4' )
       })
