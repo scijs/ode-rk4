@@ -16,7 +16,41 @@ Object.keys(ctors).forEach(function(dtype) {
 
   describe('rk4 integration (' + dtype + ')', function() {
 
-    describe('taking time steps', function() {
+    describe('integration of one variable', function() {
+      var integrator, f, y0, t0, n
+
+      beforeEach(function() {
+        f = function(dydt, y) { dydt[0] = -y[0] }
+        t0 = 1.5
+        y0 = new ctor([1])
+        n = 10
+
+        integrator = rk4( y0, f, t0, 1/n )
+      })
+
+      it('creates work arrays of the same size as the input',function() {
+        assert.equal( integrator._w.constructor,  y0.constructor )
+        assert.equal( integrator._k1.constructor, y0.constructor )
+        assert.equal( integrator._k2.constructor, y0.constructor )
+        assert.equal( integrator._k3.constructor, y0.constructor )
+        assert.equal( integrator._k4.constructor, y0.constructor )
+      })
+
+      it('creates work arrays of the same type as the input',function() {
+        assert.equal( integrator._w.length,  y0.length )
+        assert.equal( integrator._k1.length, y0.length )
+        assert.equal( integrator._k2.length, y0.length )
+        assert.equal( integrator._k3.length, y0.length )
+        assert.equal( integrator._k4.length, y0.length )
+      })
+
+      it('takes multiple timesteps',function() {
+        integrator.steps(n)
+        assert.closeTo(integrator.y[0], Math.exp(-1), 1e-4 )
+      })
+    })
+
+    describe('integration of two variables', function() {
       var integrator, f, y0, t0
 
       beforeEach(function() {
@@ -31,20 +65,36 @@ Object.keys(ctors).forEach(function(dtype) {
         integrator = rk4( y0, f, t0, 1 )
       })
 
-      it("takes a single timestep",function() {
+      it('creates work arrays of the same size as the input',function() {
+        assert.equal( integrator._w.constructor,  y0.constructor )
+        assert.equal( integrator._k1.constructor, y0.constructor )
+        assert.equal( integrator._k2.constructor, y0.constructor )
+        assert.equal( integrator._k3.constructor, y0.constructor )
+        assert.equal( integrator._k4.constructor, y0.constructor )
+      })
+
+      it('creates work arrays of the same type as the input',function() {
+        assert.equal( integrator._w.length,  y0.length )
+        assert.equal( integrator._k1.length, y0.length )
+        assert.equal( integrator._k2.length, y0.length )
+        assert.equal( integrator._k3.length, y0.length )
+        assert.equal( integrator._k4.length, y0.length )
+      })
+
+      it('takes a single timestep',function() {
         integrator.step()
         assert.closeTo( integrator.y[0], 0.5416666666666667, 1e-4 )
         assert.closeTo( integrator.y[1], 0.8333333333333333, 1e-4 )
       })
 
-      it("increments the time",function() {
+      it('increments the time',function() {
         integrator.step()
         assert.closeTo( integrator.t, t0 + integrator.dt, 1e-4 )
         integrator.step()
         assert.closeTo( integrator.t, t0 + 2*integrator.dt, 1e-4 )
       })
 
-      it("takes multiple timesteps",function() {
+      it('takes multiple timesteps',function() {
         integrator.steps(2)
         assert.closeTo(integrator.y[0], -0.4010416666666664, 1e-4 )
         assert.closeTo(integrator.y[1], 0.9027777777777778, 1e-4)
