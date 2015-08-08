@@ -52,7 +52,7 @@ integrator.steps(n)
 ### `require('ode-rk4')( y0, deriv, t0, dt )`
 **Arguments:**
 - `y0`: an array or typed array containing initial conditions. This vector is updated in-place with each integrator step.
-- `deriv`: a function that calculates the derivative. Format is `function( dydt, y, t )`. Inputs are current state `y` and current time `t`, output is calcualted derivative `dydt`.
+- `deriv`: a function that calculates the derivative. Format is `function( dydt, y, t )`. Inputs are current state `y` and current time `t`, output is the calculated derivative `dydt`.
 - `t0`: initial time <img alt="t" valign="middle" src="docs/images/t-fc93da6f4d.png" width="11.5" height="16">.
 - `dt`: time step <img alt="&bsol;Delta t" valign="middle" src="docs/images/delta-t-a20a5fe4f2.png" width="28" height="16">.
 
@@ -62,7 +62,7 @@ Initialized integrator object.
 **Properties:**
 - `n`: dimension of `y0`.
 - `y`: current state. Initialized as a shallow copy of input `y0`.
-- `deriv`: function that calcualtes derivative. Initialized from input. May be changed.
+- `deriv`: function that calculates the derivative. Initialized from input. May be changed.
 - `t`: current time, incremented by `dt` with each time step.
 - `dt`: time step <img alt="&bsol;Delta t" valign="middle" src="docs/images/delta-t-a20a5fe4f2.png" width="28" height="16">. Initialized from input `dt`. May be changed.
 
