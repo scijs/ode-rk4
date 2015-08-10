@@ -15,6 +15,8 @@ where <img alt="y" valign="middle" src="docs/images/y-720f311276.png" width="14.
 where <img alt="k&lowbar;n" valign="middle" src="docs/images/k_n-d413726dee.png" width="25.5" height="19"> are given by
 <p align="center"><img alt="&bsol;begin&lcub;eqnarray&midast;&rcub; k&lowbar;1 &amp;&equals;&amp; f&lpar;t&lowbar;n&comma; y&lowbar;n&rpar;&comma; &bsol;&bsol; k&lowbar;2 &amp;&equals;&amp; f&lpar;t&lowbar;n &plus; &bsol;frac&lcub;&bsol;Delta t&rcub;&lcub;2&rcub;&comma; y&lowbar;n &plus; &bsol;frac&lcub;&bsol;Delta t&rcub;&lcub;2&rcub; k&lowbar;1&rpar;&comma; &bsol;&bsol; k&lowbar;3 &amp;&equals;&amp; f&lpar;t&lowbar;n &plus; &bsol;frac&lcub;&bsol;Delta t&rcub;&lcub;2&rcub;&comma; y&lowbar;n &plus; &bsol;frac&lcub;&bsol;Delta t&rcub;&lcub;2&rcub; k&lowbar;2&rpar;&comma; &bsol;&bsol; k&lowbar;4 &amp;&equals;&amp; f&lpar;t&lowbar;n &plus; &bsol;Delta t&comma; y&lowbar;n &plus; &bsol;Delta tk&lowbar;3&rpar;&period;  &bsol;end&lcub;eqnarray&midast;&rcub;" valign="middle" src="docs/images/begineqnarray-k_1-ft_n-y_n-k_2-ft_n-fracdelta-35d808c6ef.png" width="288" height="156.5"></p>
 
+For a similar adaptive method using the fifth order Cash-Karp Runge-Kutta method with fourth order embedded error estimator, see [https://github.com/scijs/ode45-cash-karp](ode45-cash-karp].
+
 ## Install
 
 ```bash

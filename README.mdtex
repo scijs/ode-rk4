@@ -15,6 +15,8 @@ $$[plain=true] \begin{eqnarray*} y_{n+1} &=& \frac{\Delta t}{6}\left(k_1 + 2k_2 
 where $k_n$ are given by
 $$[plain=true] \begin{eqnarray*} k_1 &=& f(t_n, y_n), \\ k_2 &=& f(t_n + \frac{\Delta t}{2}, y_n + \frac{\Delta t}{2} k_1), \\ k_3 &=& f(t_n + \frac{\Delta t}{2}, y_n + \frac{\Delta t}{2} k_2), \\ k_4 &=& f(t_n + \Delta t, y_n + \Delta tk_3).  \end{eqnarray*}$$
 
+For a similar adaptive method using the fifth order Cash-Karp Runge-Kutta method with fourth order embedded error estimator, see [https://github.com/scijs/ode45-cash-karp](ode45-cash-karp].
+
 ## Install
 
 ```bash
